@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1615903728 source:d:\test1\seahorse\main.cpp
+	<SDL.h>
+	<SDL_ttf.h>
+	<bits/stdc++.h>
+	"display.h"
+	"board.h"
+	"gameplay.h"
+
+1615815111 d:\test1\seahorse\display.h
+	<iostream>
+	<SDL_ttf.h>
+	<SDL.h>
+
+1615905810 d:\test1\seahorse\board.h
+	<bits/stdc++.h>
+	"display.h"
+	<SDL_ttf.h>
+	<SDL.h>
+
+1615950049 d:\test1\seahorse\gameplay.h
+	<bits/stdc++.h>
+	"display.h"
+	"board.h"
+	<SDL_ttf.h>
+	<SDL.h>
+
