@@ -46,9 +46,11 @@
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
 		<Unit filename="board.h" />
+		<Unit filename="button.h" />
 		<Unit filename="display.h" />
 		<Unit filename="gameplay.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.h" />
 		<Unit filename="sound.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

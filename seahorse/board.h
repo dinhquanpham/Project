@@ -4,23 +4,36 @@
 #include "display.h"
 #include <SDL_ttf.h>
 #include <SDL.h>
+
 using namespace std;
+
 typedef pair <int,int> pp;
+
 bool cmp(const pair <SDL_Rect,pp> a,const pair <SDL_Rect,pp> b)
 {
     return (a.first.y < b.first.y);
 }
+
+int special_random()
+{
+    int num_special = rand() % 56 + 1;
+    return num_special;
+}
+
 int nextt(int i,int pos)
 {
-    if (pos == 56+6) return pos;
+    if (pos == 56 + 6) return pos;
     if (pos == 0) return (i - 1) * 14 + 2;
     if (pos == 56) return 1;
-    if (pos == (i-1)*14+1) return 57;
+    if (pos == (i - 1) * 14 + 1) return 57;
     return pos + 1;
 }
+
 struct board
 {
-    //vi tri 16 con ma
+    /// special
+    int special_num = special_random();
+    /// vi tri 16 con ma
     int pos[5][5],isbright[5][5];
     SDL_Rect start[5][5],goal[5][7],tile[100],horse_rect[5][5],triangle[5];
     void setup_rect()
@@ -52,7 +65,7 @@ struct board
             tile[i + 1].y = tile[i].y + 33;
         }
         // ô di chuyển của mã xanh lá cây
-        tile[29]={695,549,55,85};
+        tile[29]={698,549,55,85};
         tile[30]={749,549,55,85};
         for (int i = 30; i <= 36; i++)
         {
@@ -119,7 +132,7 @@ struct board
             goal[3][i+1].y = goal[3][i].y - 33;
         }
         // tọa độ lên chuồng đỏ
-        goal[4][1] = {915,297,55,85};
+        goal[4][1] = {917,297,55,85};
          for (int i = 1; i < 6; i++)
         {
             goal[4][i+1] = goal[4][i];
@@ -130,25 +143,31 @@ struct board
         triangle[2] = {515,589,30,30};
         triangle[3] = {830,589,30,30};
         triangle[4] = {830,77,30,30};
+        // tọa độ skip_button
+
     }
-    // tạo bàn cờ
+    /// khởi tạo bàn cờ
     void setup_board()
     {
         for (int i = 1; i <= 4; i ++)
             for (int j = 1; j <= 4; j ++)
             {
-                pos[i][j] = isbright[i][j]=0;
+                pos[i][j] = isbright[i][j] = 0;
                 horse_rect[i][j] = start[i][j];
             }
     }
     void render_board()
     {
-        SDL_RenderClear(renderer);
-        SDL_Rect z={0,0,1080,700};
-        SDL_RenderCopy(renderer, t_background[1], NULL,&z);
-        SDL_Rect r={428,50,600,600};
+       // SDL_RenderClear(renderer);
+       // SDL_Rect background_rect = {0,0,1080,700};
+       // SDL_RenderCopy(renderer,t_background[1], NULL, &background_rect);
+        SDL_Rect r = {428,50,600,600};
         SDL_RenderCopy(renderer, t_map, NULL, &r);
-        vector <pair <SDL_Rect,pp > > V;
+        SDL_RenderCopy(renderer,t_skipbutton[1], NULL , &skip_button_rect);
+        SDL_RenderCopy(renderer,t_khung[1],NULL,&khung);
+        SDL_RenderCopy(renderer,t_rollbutton[1], NULL, &roll_button);
+//        SDL_RenderCopy(renderer,t_meme[1],NULL,&tile[special_num]);
+        vector <pair <SDL_Rect,pp> > V;
         for (int i=1; i<=4; i++)
         {
             for (int j=1; j<=4; j++)
@@ -164,7 +183,6 @@ struct board
             else SDL_RenderCopy(renderer, t_bright[i],NULL, &horse_rect[i][j]);
         }
         SDL_RenderPresent(renderer);
-
     }
     void move_next(int i, int j)
     {
@@ -178,37 +196,38 @@ struct board
                 else b = tile[pos[i][j]];
 
         int num = 20;
+        if (abs(a.x - b.x) + abs(a.y - b.y) > 40) num *= 2;
+        //cerr<<abs(a.x - b.x) + abs(a.y - b.y) << endl;
         while (num > 0)
         {
-            int dx = (b.x - a.x)/num;
-            int dy=(b.y - a.y)/num;
+            int dx = (b.x - a.x) / num;
+            int dy = (b.y - a.y) / num;
             a.x += dx; a.y += dy;
             horse_rect[i][j] = a;
             render_board();
             SDL_Delay(5);
-            num--;
+            num --;
         }
-        for (int p = 1;p <= 4; p++)
+        for (int p = 1; p <= 4; p ++)
             if (p != i)
-        /// đang bị sai
-        for (int k = 1;k <= 4; k++)
-            if (pos[p][k] == pos[i][j])
-            {
-                pos[p][k] = 0;
-                SDL_Rect a = horse_rect[p][k];
-                SDL_Rect b = start[p][k];
-                int num = 20;
-                while (num > 0)
+            for (int k = 1; k <= 4; k ++)
+                if (pos[p][k] <= 56 && pos[p][k] > 0 && pos[p][k] == pos[i][j])
                 {
-                    int dx = (b.x - a.x)/num;
-                    int dy=(b.y - a.y)/num;
-                    a.x += dx;a.y += dy;
-                    horse_rect[p][k] = a;
-                    render_board();
-                    SDL_Delay(5);
-                    num --;
+                    pos[p][k] = 0;
+                    SDL_Rect a = horse_rect[p][k];
+                    SDL_Rect b = start[p][k];
+                    int num = 40;
+                    while (num > 0)
+                    {
+                        int dx = (b.x - a.x) / num;
+                        int dy = (b.y - a.y) / num;
+                        a.x += dx ; a.y += dy;
+                        horse_rect[p][k] = a;
+                        render_board();
+                        SDL_Delay(5);
+                        num --;
+                    }
                 }
-            }
     }
     void move_horse(int i, int j, int num)
     {
@@ -217,11 +236,16 @@ struct board
             move_next(i,j);
         }
     }
+    void special_bonus(int i , int j , int special_num)
+    {
+    }
 
     //more
     void endgame()
     {
-
+        board B;
+        SDL_RenderCopy(renderer,t_victory[1],NULL,&victory_screen);
+        SDL_RenderPresent(renderer);
     }
 };
 #endif
