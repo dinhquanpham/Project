@@ -1,0 +1,27 @@
+-Giới thiệu về luật chơi 
+	+, Mỗi người chơi chọn 1 trong 4 màu và nhận 4 quân cờ theo màu sắc đã chọn và đặt vào vị trí màu tương ứng 
+	   trên bàn cờ.
+	+,Xúc xắc trong game được sinh ngẫu nhiên từ 1 đến 6 , mỗi người chơi ở 1 lượt chơi theo thứ tự 
+	+,Để di chuyển  có 2 trường hợp xảy ra:
+		*/ Người chơi đang ở khu vực xuất phát : để ra khỏi khu vực xuất phát , người chơi phải xúc ra được 6
+		và con cờ sẽ ở Ô XUẤT PHÁT
+		*/ Người chơi đang ở các ô di chuyển : Một khi trên bàn cờ đã có một quân cờ của mình được tham gia di
+		 chuyển thì ta có thể căn cứ vào kết quả của việc tung xúc xắc để di chuyển nó. Kết quả bao nhiêu
+		 thì đó là số bước phải di chuyển, không di chuyển nhiều hay ít hơn kết quả.
+		*/Cách vào chuồng: Khi quân cờ của mình di chuyển được một vòng quanh bàn cờ thì về đến cửa chuồng của
+		 mình. Về đến cửa chuồng vẫn có thể bị đối phương đá. Chỉ khi lên chuồng thì mới có thể loại trừ được 
+		 điều này. Khi quân của mình đang đứng trước cửa chuồng và đang trên lượt đi của mình. Vào chuồng theo
+		 kết quả của việc tung xúc xắc. Lúc này, ta phải xếp quân tiến từng ô một kế tiếp ô ta đã đưa quân vào.
+-Các trường hợp sẽ gặp khi di chuyển:
+	+,Đá: làm cho quân cờ đối phương (đứng trước quân cờ mình) bị mất quyền tham gia di chuyển trên bàn cờ. Chỉ xảy
+	  ra khi khoảng cách giữa hai quân đúng bằng kết quả lượt tung xúc xắc của mình. Khi đó, quân mình đến thế chỗ	
+ 	  cho quân đối phương. Trường hợp quân mình đứng ngay sát quân đối phương gọi là sát nút.
+	+,Bị cản: một quân cờ bị cản tức là có một quân cờ khác (của mình hoặc của đối phương) đứng trước nó mà khoảng
+	  cách bước đi giữa hai quân nhỏ hơn kết quả việc tung xúc xắc của mình. Trường hợp này không được vượt qua mặt
+	  quân cờ đứng trước hoặc di chuyển ngược lại mà phải chọn quân khác để đi. Nếu không có quân nào có thể di
+	  chuyển hợp lệ thì xem như mất lượt
+-Điều kiện thắng 
+	+,Bị cản: một quân cờ bị cản tức là có một quân cờ khác (của mình hoặc của đối phương) đứng trước nó mà khoảng
+	  cách bước đi giữa hai quân nhỏ hơn kết quả việc tung xúc xắc của mình. Trường hợp này không được vượt qua mặt
+	  quân cờ đứng trước hoặc di chuyển ngược lại mà phải chọn quân khác để đi. Nếu không có quân nào có thể di 
+	  chuyển hợp lệ thì xem như mất lượt
